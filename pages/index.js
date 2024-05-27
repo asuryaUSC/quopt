@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import QuoteGrid from '../components/QuoteGrid';
 import EndGamePopup from '../components/EndGamePopup';
 import ShuffleButton from '../components/ShuffleButton';
+import TutorialPopup from '../components/TutorialPopup';
 
 const Home = () => {
   const [quote, setQuote] = useState([]);
@@ -11,6 +12,7 @@ const Home = () => {
   const [optimalMoves, setOptimalMoves] = useState(0);
   const [currentQuote, setCurrentQuote] = useState('');
   const [author, setAuthor] = useState('');
+  const [showTutorial, setShowTutorial] = useState(true);
 
   const fetchQuote = async () => {
     const res = await fetch('/quotes.json');
@@ -74,9 +76,13 @@ const Home = () => {
     setIsSolved(false);
   };
 
+  const handleCloseTutorial = () => {
+    setShowTutorial(false);
+  };
+
   return (
     <div>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-white pt-0 lg:pt-10">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-white pt-4 lg:pt-20">
         <QuoteGrid quote={quote} onSwap={handleSwap} originalQuote={originalQuote} />
         <ShuffleButton onShuffle={handleShuffle} />
       </div>
@@ -88,6 +94,7 @@ const Home = () => {
         quote={currentQuote}
         author={author}
       />
+      <TutorialPopup isOpen={showTutorial} onClose={handleCloseTutorial} />
     </div>
   );
 };
