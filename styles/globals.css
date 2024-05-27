@@ -2,32 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%, 75% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.shake {
+  animation: shake 0.5s;
+}
+
+.float-up {
+  animation: float-up 0.5s ease-in-out;
+}
+
+.float-down {
+  animation: float-down 0.5s ease-in-out;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply bg-white flex justify-center items-center min-h-screen text-gray-900;
+  font-family: 'Helvetica', sans-serif;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.grid-box {
+  @apply flex items-center justify-center w-16 h-16 border cursor-pointer rounded-lg;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.grid-box:hover {
+  transform: scale(1.1);
+}
+
+.logo-box {
+  @apply flex items-center justify-center w-16 h-16 border border-black rounded-lg mx-1;
+}
+
+.move-counter {
+  @apply text-lg font-bold mt-4;
+}
+
+button {
+  @apply transition duration-300 ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
 }
